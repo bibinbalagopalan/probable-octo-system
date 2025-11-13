@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <link
+            rel="preload"
+            href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Ubuntu:wght@400;500;700&display=swap"
+            as="style"
+            onload="this.onload=null;this.rel='stylesheet'">
+        <title>
+            {% if title %}
+                {{ title }} | Jeevadhara | Free Practice-Based Medical Education
+            {% else %}
+                Jeevadhara | Free Practice-Based Medical Education
+            {% endif %}
+        </title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            :root {
+                --primary-accent: #fcd800; /* Yellow */
+                --secondary-accent: #6ab0ff; /* Blue */
+                --text-light: #f0f0f0;
+                --text-muted: #aaa;
+                --content-dark: rgba(30, 30, 46, 0.8);
+                --highlight-blue: rgba(106, 176, 255, 0.1);
+                --highlight-yellow: rgba(252, 216, 0, 0.1);
+            }
+            /* Consistent Dark Theme */
+            body {
+                font-family: 'Ubuntu', sans-serif;
+                background: linear-gradient(135deg, #0a0a1a 0%, #000 100%);
+                color: var(--text-light);
+                line-height: 1.7;
+                min-height: 100vh;
+            }
+            .container {
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 40px 20px;
+            }
+            header {
+                text-align: center;
+                margin-bottom: 50px;
+                padding-bottom: 30px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            /* Chapter Info */
+            .chapter-info {
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            .chapter-name {
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: var(--primary-accent);
+                margin-bottom: 10px;
+            }
+            .back-to-course {
+                display: inline-block;
+                color: var(--secondary-accent);
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s;
+                margin-bottom: 20px;
+            }
+            .back-to-course:hover {
+                color: #a8d2ff;
+            }
+            /* Sponsor Section */
+            .sponsor-section {
+                background: var(--content-dark);
+                border-radius: 12px;
+                padding: 25px;
+                margin-bottom: 30px;
+                text-align: center;
+                border-left: 4px solid var(--primary-accent);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+            .sponsor-title {
+                font-size: 1.2rem;
+                color: var(--text-muted);
+                margin-bottom: 15px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            .sponsor-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+            .sponsor-logo {
+                max-width: 150px;
+                max-height: 70px;
+                object-fit: contain;
+                border-radius: 8px;
+            }
+            .sponsor-text {
+                max-width: 500px;
+                text-align: left;
+            }
+            .sponsor-name {
+                font-weight: 600;
+                color: var(--primary-accent);
+                margin-bottom: 8px;
+                font-size: 1.4rem;
+            }
+            .sponsor-message {
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+            /* Main Heading */
+            h1 {
+                font-size: 2.8rem;
+                font-weight: 700;
+                color: var(--secondary-accent);
+                margin-bottom: 20px;
+                line-height: 1.3;
+            }
+            .learning-outcome {
+                font-size: 1.3rem;
+                color: var(--text-muted);
+                font-weight: 400;
+                max-width: 700px;
+                margin: 0 auto;
+                /* Dark theme styling for outcome box */
+                background: var(--content-dark);
+                padding: 20px;
+                border-radius: 10px;
+                border-left: 4px solid var(--secondary-accent);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+            main.content-area {
+                background: var(--content-dark);
+                border-radius: 12px;
+                padding: 40px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                margin-bottom: 30px;
+            }
+            /* Section Headings */
+            h2 {
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: var(--primary-accent);
+                margin: 40px 0 20px;
+                padding-bottom: 10px;
+                border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            }
+            h2:first-of-type {
+                margin-top: 0;
+            }
+            p {
+                font-size: 1.1rem;
+                margin-bottom: 20px;
+                color: var(--text-light);
+            }
+            /* Key Points Block */
+            .key-points {
+                background: var(--highlight-blue);
+                border-left: 4px solid var(--secondary-accent);
+                padding: 25px;
+                margin: 25px 0;
+                border-radius: 0 8px 8px 0;
+            }
+            .key-points h3 {
+                color: var(--text-light);
+                margin-bottom: 15px;
+                font-size: 1.3rem;
+            }
+            ul,
+            ol {
+                margin: 20px 0;
+                padding-left: 30px;
+                color: var(--text-light);
+            }
+            li {
+                margin-bottom: 12px;
+                font-size: 1.1rem;
+                color: var(--text-light);
+            }
+            /* Example/Definition Box */
+            .example-box {
+                background: var(--highlight-yellow);
+                border: 1px solid var(--primary-accent);
+                border-radius: 8px;
+                padding: 25px;
+                margin: 25px 0;
+            }
+            .example-box h3 {
+                color: var(--primary-accent);
+                margin-bottom: 15px;
+                font-size: 1.2rem;
+            }
+            /* Equation Styling */
+            .equation-display {
+                text-align: center;
+                margin: 25px 0;
+                font-size: 1.3rem;
+                font-weight: 600;
+                color: var(--secondary-accent);
+            }
+            /* Navigation Buttons */
+            .navigation {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 50px;
+                padding-top: 30px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .nav-btn {
+                padding: 12px 25px;
+                background: var(--primary-accent);
+                color: #000;
+                text-decoration: none;
+                border-radius: 6px;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                border: none;
+                cursor: pointer;
+                font-family: 'Ubuntu', sans-serif;
+                font-size: 1rem;
+            }
+            .nav-btn:hover {
+                background: #ffe64d;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+            .nav-btn.outline {
+                background: transparent;
+                color: var(--primary-accent);
+                border: 2px solid var(--primary-accent);
+            }
+            .nav-btn.outline:hover {
+                background: var(--primary-accent);
+                color: #000;
+            }
+            .loading {
+                text-align: center;
+                padding: 60px;
+                color: var(--text-muted);
+                font-size: 1.2rem;
+            }
+            footer {
+                text-align: center;
+                margin-top: 60px;
+                padding: 20px 0;
+                color: #6c757d;
+                font-size: 0.9rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            /* Responsive */
+            @media(max-width: 768px) {
+                .container {
+                    padding: 20px 15px;
+                }
+                h1 {
+                    font-size: 2.2rem;
+                }
+                .chapter-name {
+                    font-size: 1.5rem;
+                }
+                .learning-outcome {
+                    font-size: 1.1rem;
+                    padding: 15px;
+                }
+                main.content-area {
+                    padding: 25px;
+                }
+                h2 {
+                    font-size: 1.5rem;
+                }
+                .navigation {
+                    flex-direction: column;
+                    gap: 15px;
+                }
+                .nav-btn {
+                    width: 100%;
+                    text-align: center;
+                }
+                .sponsor-content {
+                    flex-direction: column;
+                    text-align: center;
+                }
+                .sponsor-text {
+                    text-align: center;
+                }
+            }
+            /* Print styles */
+            @media print {
+                .navigation,
+                footer {
+                    display: none;
+                }
+                body {
+                    background: white;
+                    color: black;
+                }
+                main.content-area {
+                    box-shadow: none;
+                    border: 1px solid #ddd;
+                    background: white;
+                }
+            }
+            /* Sponsor Modal Styles */
+            .sponsor-modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                z-index: 10000;
+                justify-content: center;
+                align-items: center;
+                animation: fadeIn 0.3s ease;
+            }
+            .sponsor-modal.show {
+                display: flex;
+            }
+            .sponsor-modal-content {
+                background: var(--content-dark);
+                border-radius: 15px;
+                padding: 30px;
+                max-width: 600px;
+                width: 90%;
+                max-height: 90vh;
+                overflow-y: auto;
+                position: relative;
+                border: 2px solid var(--primary-accent);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+            .close-modal {
+                position: absolute;
+                top: 15px;
+                right: 20px;
+                background: none;
+                border: none;
+                color: var(--text-light);
+                font-size: 2rem;
+                cursor: pointer;
+                transition: color 0.3s;
+            }
+            .close-modal:hover {
+                color: var(--primary-accent);
+            }
+            .sponsor-header {
+                text-align: center;
+                margin-bottom: 25px;
+            }
+            .sponsor-header h2 {
+                color: var(--primary-accent);
+                font-size: 1.8rem;
+                margin: 0;
+            }
+            .sponsor-content {
+                margin: 25px 0;
+                text-align: center;
+            }
+            /* Video Content */
+            .sponsor-video {
+                width: 100%;
+                max-width: 500px;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+            .sponsor-video video {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+            }
+            /* Poster Content */
+            .sponsor-poster {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            .sponsor-poster img {
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+                border: 3px solid var(--secondary-accent);
+            }
+            /* Message Content */
+            .sponsor-message {
+                background: var(--highlight-blue);
+                padding: 25px;
+                border-radius: 10px;
+                border-left: 4px solid var(--secondary-accent);
+            }
+            .sponsor-name {
+                font-size: 1.8rem;
+                color: var(--primary-accent);
+                margin-bottom: 15px;
+                font-weight: 700;
+            }
+            .sponsor-quote {
+                font-size: 1.2rem;
+                font-style: italic;
+                color: var(--text-light);
+                line-height: 1.6;
+            }
+            .sponsor-role {
+                margin-top: 15px;
+                color: var(--text-muted);
+                font-size: 1rem;
+            }
+            .sponsor-footer {
+                text-align: center;
+                margin-top: 25px;
+                padding-top: 20px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .sponsor-timer {
+                margin-top: 15px;
+            }
+            .timer-bar {
+                width: 100%;
+                height: 6px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 3px;
+                overflow: hidden;
+                margin-bottom: 10px;
+            }
+            .timer-progress {
+                height: 100%;
+                background: var(--primary-accent);
+                width: 100%;
+                transition: width 1s linear;
+            }
+            #timerText {
+                color: var(--text-muted);
+                font-size: 0.9rem;
+            }
+            /* Animation */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            .sponsor-modal-content {
+                animation: slideUp 0.4s ease;
+            }
+            /* Responsive */
+            @media(max-width: 768px) {
+                .sponsor-modal-content {
+                    padding: 20px;
+                    margin: 20px;
+                }
+                .sponsor-header h2 {
+                    font-size: 1.5rem;
+                }
+                .sponsor-name {
+                    font-size: 1.5rem;
+                }
+                .sponsor-quote {
+                    font-size: 1.1rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        {% include "header.njk" %}
+        <div class="container">
+            <div class="chapter-header">
+                <div class="chapter-info">
+                    <h1>{{ title }}</h1>
+                    <a href="{{ backLink }}" class="back-to-course">← Back to Course</a>
+                </div>
+            </div>
+            <main class="content-area">
+                {{ content | safe }}
+            </main>
+        </div>
+        {% include "footer.njk" %}
+    </body>
+</html>

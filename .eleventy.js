@@ -4,6 +4,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets/js");
   eleventyConfig.addPassthroughCopy("js");
   eleventyConfig.addPassthroughCopy("assets/images");
+  eleventyConfig.addPassthroughCopy("quizzes");
+   eleventyConfig.addTemplateFormats("md");
 
   return {
     dir: {

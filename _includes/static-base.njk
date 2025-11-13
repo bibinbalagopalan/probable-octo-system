@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <link
+            rel="preload"
+            href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Ubuntu:wght@400;500;700&display=swap"
+            as="style"
+            onload="this.onload=null;this.rel='stylesheet'">
+        <title>
+            {% if title %}
+                {{ title }} | Jeevadhara | Free Practice-Based Medical Education
+            {% else %}
+                Jeevadhara | Free Practice-Based Medical Education
+            {% endif %}
+        </title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            :root {
+                --static-primary-accent: #fcd800; /* Yellow */
+                --static-secondary-accent: #6ab0ff; /* Blue */
+                --static-text-light: #f0f0f0;
+                --static-text-muted: #aaa;
+                --static-content-dark: rgba(30, 30, 46, 0.8);
+                --static-highlight-blue: rgba(106, 176, 255, 0.1);
+                --static-highlight-yellow: rgba(252, 216, 0, 0.1);
+            }
+            .static-body {
+                font-family: 'Ubuntu', sans-serif;
+                background: linear-gradient(135deg, #0a0a1a 0%, #000 100%);
+                color: var(--static-text-light);
+                line-height: 1.7;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+            .static-container {
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 40px 20px;
+                flex: 1;
+            }
+            .static-page-header {
+                text-align: center;
+                margin-bottom: 50px;
+                padding-bottom: 30px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .static-page-info {
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            .static-page-name {
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: var(--static-primary-accent);
+                margin-bottom: 10px;
+            }
+            .static-back-home {
+                display: inline-block;
+                color: var(--static-secondary-accent);
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s;
+                margin-bottom: 20px;
+            }
+            .static-back-home:hover {
+                color: #a8d2ff;
+            }
+            .static-main-heading {
+                font-size: 2.8rem;
+                font-weight: 700;
+                color: var(--static-secondary-accent);
+                margin-bottom: 20px;
+                line-height: 1.3;
+            }
+            .static-subtitle {
+                font-size: 1.3rem;
+                color: var(--static-text-muted);
+                font-weight: 400;
+                max-width: 700px;
+                margin: 0 auto;
+                background: var(--static-content-dark);
+                padding: 20px;
+                border-radius: 10px;
+                border-left: 4px solid var(--static-secondary-accent);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+            .static-content-area {
+                background: var(--static-content-dark);
+                border-radius: 12px;
+                padding: 40px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                margin-bottom: 30px;
+            }
+            .static-section-heading {
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: var(--static-primary-accent);
+                margin: 40px 0 20px;
+                padding-bottom: 10px;
+                border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            }
+            .static-section-heading:first-of-type {
+                margin-top: 0;
+            }
+            .static-paragraph {
+                font-size: 1.1rem;
+                margin-bottom: 20px;
+                color: var(--static-text-light);
+            }
+            .static-highlight-box {
+                background: var(--static-highlight-blue);
+                border-left: 4px solid var(--static-secondary-accent);
+                padding: 25px;
+                margin: 25px 0;
+                border-radius: 0 8px 8px 0;
+            }
+            .static-highlight-box h3 {
+                color: var(--static-text-light);
+                margin-bottom: 15px;
+                font-size: 1.3rem;
+            }
+            .static-list ul,
+            .static-list ol {
+                margin: 20px 0;
+                padding-left: 30px;
+                color: var(--static-text-light);
+            }
+            .static-list li {
+                margin-bottom: 12px;
+                font-size: 1.1rem;
+                color: var(--static-text-light);
+            }
+            .static-notice-box {
+                background: var(--static-highlight-yellow);
+                border: 1px solid var(--static-primary-accent);
+                border-radius: 8px;
+                padding: 25px;
+                margin: 25px 0;
+            }
+            .static-notice-box h3 {
+                color: var(--static-primary-accent);
+                margin-bottom: 15px;
+                font-size: 1.2rem;
+            }
+            .static-quote {
+                text-align: center;
+                margin: 25px 0;
+                font-size: 1.3rem;
+                font-weight: 600;
+                color: var(--static-secondary-accent);
+                font-style: italic;
+            }
+            .static-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 30px;
+                margin: 40px 0;
+            }
+            .static-card {
+                background: var(--static-highlight-blue);
+                padding: 25px;
+                border-radius: 10px;
+                text-align: center;
+                border: 1px solid var(--static-secondary-accent);
+            }
+            .static-card h4 {
+                color: var(--static-primary-accent);
+                margin-bottom: 10px;
+                font-size: 1.3rem;
+            }
+            .static-card-role {
+                color: var(--static-text-muted);
+                font-style: italic;
+                margin-bottom: 15px;
+            }
+            .static-contact-info {
+                background: var(--static-highlight-yellow);
+                padding: 25px;
+                border-radius: 10px;
+                margin: 30px 0;
+                border: 1px solid var(--static-primary-accent);
+            }
+            .static-toc {
+                background: var(--static-highlight-blue);
+                padding: 25px;
+                border-radius: 8px;
+                margin: 30px 0;
+            }
+            .static-toc h3 {
+                color: var(--static-primary-accent);
+                margin-bottom: 15px;
+            }
+            .static-toc ul {
+                list-style-type: none;
+                padding-left: 0;
+            }
+            .static-toc li {
+                margin-bottom: 8px;
+            }
+            .static-toc a {
+                color: var(--static-secondary-accent);
+                text-decoration: none;
+            }
+            .static-toc a:hover {
+                text-decoration: underline;
+            }
+            @media(max-width: 768px) {
+                .static-container {
+                    padding: 20px 15px;
+                }
+                .static-main-heading {
+                    font-size: 2.2rem;
+                }
+                .static-page-name {
+                    font-size: 1.5rem;
+                }
+                .static-subtitle {
+                    font-size: 1.1rem;
+                    padding: 15px;
+                }
+                .static-content-area {
+                    padding: 25px;
+                }
+                .static-section-heading {
+                    font-size: 1.5rem;
+                }
+                .static-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body class="static-body">
+        {% include "header.njk" %}
+        <div class="static-container">
+            <div class="static-page-header">
+                <div class="static-page-info">
+                    <h1 class="static-main-heading">{{ title }}</h1>
+                    {% if subtitle %}
+                        <div class="static-subtitle">{{ subtitle }}</div>
+                    {% endif %}
+                    <a href="{{ backLink | default('/') }}" class="static-back-home">← Back to Home</a>
+                </div>
+            </div>
+            <main class="static-content-area">
+                {{ content | safe }}
+            </main>
+        </div>
+        {% include "footer.njk" %}
+    </body>
+</html>
