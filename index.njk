@@ -74,6 +74,23 @@ layout: layout.njk
     border-radius: 5px;
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
+  .exam-grid a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .exam-grid a span {
+    display: block;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+  .exam-grid a:hover span {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
   /* CTA Section - Keep as is */
   .cta-container {
     display: flex;
@@ -527,17 +544,14 @@ layout: layout.njk
         <br>
           <div class="exam-grid" aria-label="Target Exams">
             {% for course in courses %}
-              <span>{{ course.name }}</span>
+              <a href="/courses/{{ course.name | slug }}/" style="text-decoration: none;">
+                <span>{{ course.name }}</span>
+              </a>
             {% endfor %}
           </div>
         </div>
       </div>
-      <div class="hero-right">
-        <div class="cta-container">
-          <button class="cta-btn">Start Here</button>
-          <p class="cta-text">It's totally free.</p>
-        </div>
-      </div>
+      <div class="hero-right"></div>
     </section>
     <section class="courses">
       <div class="container">
