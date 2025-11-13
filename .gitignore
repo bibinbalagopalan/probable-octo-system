@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Eleventy output directory (default is _site, check your config)
+_site/
+
+# Optional: Add other common Node.js ignores
+npm-debug.log*
+yarn-error.log*
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db

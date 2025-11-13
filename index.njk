@@ -1,0 +1,747 @@
+---
+layout: layout.njk
+---
+
+<style>
+  /* Hero Section - Keep as is */
+  /* General Reset - Keep as is */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: "Ubuntu", sans-serif;
+    color: white;
+    background-color: #000;
+    overflow-x: hidden;
+  }
+  /* Hero Section - Keep as is */
+  .hero {
+    display: flex;
+    height: 100vh;
+    background: url("./assets/images/pexels-karola-g-5206940.jpg") center/cover no-repeat;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 0;
+  }
+  .hero-left,
+  .hero-right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem;
+  }
+  /* Adjusted proportions — LEFT is larger */
+  .hero-left {
+    flex: 0 0 65%;
+    background: black;
+    clip-path: polygon(0 0, 85% 0, 75% 100%, 0% 100%);
+  }
+  .hero-right {
+    flex: 0 0 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* Left content */
+  .hero-left h1, /* Changed h2 to h1 for semantic HTML */
+  .hero-left h2 {
+    font-size: 2.2rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+  }
+  .hero-left p {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+  .exam-grid {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .exam-grid span {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  /* CTA Section - Keep as is */
+  .cta-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .cta-btn {
+    font-family: "Ubuntu", sans-serif; /* Match body font */
+    background-color: #fcd800;
+    color: black;
+    border: none;
+    padding: 1rem 2.2rem;
+    font-size: 1.1rem;
+    border-radius: 50px; /* Rounded edges */
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+  .cta-btn:hover {
+    transform: scale(1.05);
+    background-color: #ffe64d;
+  }
+  .cta-text {
+    margin-top: 0.8rem;
+    font-size: 1rem;
+    color: white;
+  }
+  /* Courses Section Styling */
+  .courses {
+    padding: 6rem 2rem;
+    background: #000;
+  }
+  .courses .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .courses h2 {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 3rem;
+    font-weight: 600;
+  }
+  .courses-grid {
+    /* Background from original inline style */
+    background: rgba(255, 255, 255, 0.05);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  .course-column {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid #1a1a1a; /* Subtle border for better separation */
+  }
+  .course-row {
+    border-bottom: 1px solid #333;
+  }
+  .course-row:last-child {
+    border-bottom: none;
+  }
+  .exam-header {
+    padding: 20px; /* Reduced vertical padding slightly */
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+  }
+  /* Focus and hover state for accessibility and clarity */
+  .exam-header:hover,
+  .exam-header:focus {
+    background-color: #3a3a3a;
+    outline: none; /* Remove default focus ring if you provide a custom one */
+    box-shadow: inset 0 0 0 2px #fcd800;
+  }
+  .exam-name {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #fcd800; /* Highlight exam names */
+  }
+  .toggle-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+  }
+  /* Use height transition for smooth collapse */
+  .exam-content {
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  .exam-content.collapsed {
+    max-height: 0;
+  }
+  /* Ensure screen readers ignore collapsed content */
+  .exam-content[aria-hidden="true"] {
+    display: none;
+  }
+  .subject {
+    padding: 10px 20px; /* Reduced vertical padding */
+    border-bottom: 1px solid #3a3a3a;
+  }
+  .subject:last-child {
+    border-bottom: none;
+  }
+  .subject-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 0;
+  }
+  /* Focus and hover state for accessibility and clarity */
+  .subject-header:hover,
+  .subject-header:focus {
+    color: #ccc;
+    outline: none;
+  }
+  .subject-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #fff; /* Subject names are white */
+  }
+  .chapters {
+    padding-left: 20px;
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .chapters.collapsed {
+    max-height: 0;
+  }
+  /* Ensure screen readers ignore collapsed content */
+  .chapters[aria-hidden="true"] {
+    display: none;
+  }
+  .chapter {
+    padding: 5px 0; /* Reduced vertical padding */
+    border-bottom: 1px solid #444;
+  }
+  .chapter:last-child {
+    border-bottom: none;
+  }
+  .chapter a {
+    color: #6ab0ff;
+    text-decoration: none;
+    transition: color 0.3s, background-color 0.3s;
+    display: block;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  .chapter a:hover,
+  .chapter a:focus {
+    /* Added focus state */
+    color: #a8d2ff;
+    background-color: rgba(106, 176, 255, 0.1);
+    outline: none;
+  }
+  .loading {
+    grid-column: 1 / -1; /* Center across both columns */
+    text-align: center;
+    padding: 20px;
+    color: #aaa;
+  }
+  /* Responsive (Mobile) */
+  @media(max-width: 768px) {
+    .hero {
+      flex-direction: column;
+      background: url("assets/pexels-karola-g-5206940.jpg") center/cover no-repeat;
+      height: auto; /* Changed from original */
+    }
+    .hero-left {
+      background: rgba(0, 0, 0, 0.7);
+      clip-path: none;
+      flex: none;
+      padding: 2rem 2rem 3rem; /* Combined from later rule */
+    }
+    .hero-right {
+      background: rgba(0, 0, 0, 0.7);
+      flex: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0 2rem 2rem; /* Adjusted for better spacing on mobile */
+    }
+    .hero-left h1, /* Changed h2 to h1 */
+    .hero-left h2 {
+      font-size: 1.8rem;
+    }
+    .exam-grid {
+      gap: 0.5rem;
+    }
+    .cta-container {
+      align-items: center;
+      text-align: center;
+    }
+    /* Courses Grid Mobile */
+    .courses-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .course-column {
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    }
+  }
+  /* ========================= SPONSORS SECTION - Keep as is ========================= */
+  .sponsors {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.95) 40%, #000 100%);
+    padding: 6rem 2rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .sponsors .overlay {
+    content: "";
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.05); /* Glassy overlay */
+    z-index: 0;
+  }
+  .sponsors-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .sponsors-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 3rem;
+    color: white;
+    font-weight: 500;
+  }
+  /* Sponsor Grid */
+  .sponsor-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+    justify-items: center;
+    align-items: center;
+  }
+  .sponsor-grid img {
+    height: 70px; /* Uniform logo height */
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0.9) contrast(1.1);
+    transition: transform 0.3s ease, filter 0.3s ease;
+    border-radius: 10px;
+  }
+  .sponsor-grid img:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+  /* Responsive */
+  @media(max-width: 992px) {
+    .sponsor-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
+  @media(max-width: 600px) {
+    .sponsor-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    .sponsors-content h2 {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+    }
+    .sponsor-grid img {
+      height: 60px;
+    }
+  }
+  /* "View All Sponsors" link */
+  .view-all {
+    display: inline-block;
+    margin-top: 2.5rem;
+    font-size: 1rem;
+    color: #fcd800;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s, transform 0.3s;
+  }
+  .view-all:hover {
+    color: #ffe64d;
+    transform: translateY(-2px);
+  }
+  /* Mobile adjustments */
+  @media(max-width: 768px) {
+    /* Show only first 4 logos on mobile */
+    .sponsor-grid img:nth-child(n + 5) {
+      display: none;
+    }
+  }
+  /* ========================= WHY LEARN SECTION (Two-Column Grid) - Keep as is ========================= */
+  .why-learn {
+    position: relative;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9), #000);
+    padding: 6rem 2rem;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+  }
+  .why-learn .overlay {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.03);
+    z-index: 0;
+  }
+  .why-learn-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .why-learn-content h2 {
+    font-size: 2rem;
+    margin-bottom: 4rem;
+    font-weight: 600;
+  }
+  /* Grid layout for features */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    text-align: left;
+  }
+  .feature-row h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .feature-row p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+  }
+  /* CTA Button */
+  .why-learn .cta-container {
+    margin-top: 3rem;
+    text-align: center;
+  }
+  .why-learn .cta-btn {
+    background-color: #fcd800;
+    color: #000;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 2rem;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+  .why-learn .cta-btn:hover {
+    background-color: #ffe64d;
+    transform: translateY(-2px);
+  }
+  /* Responsive */
+  @media(max-width: 992px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      text-align: center;
+    }
+    .feature-row h3 {
+      font-size: 1.35rem;
+    }
+    .feature-row p {
+      font-size: 0.95rem;
+    }
+    .why-learn-content h2 {
+      font-size: 1.7rem;
+      margin-bottom: 3rem;
+    }
+    .why-learn .cta-btn {
+      width: 90%;
+      max-width: 300px;
+    }
+  }
+  /* ========================= FAQ SECTION - Keep as is ========================= */
+  .faqs {
+    background: #000;
+    color: #fff;
+    padding: 6rem 2rem;
+    text-align: center;
+  }
+  .faqs h2 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    font-weight: 600;
+  }
+  .faq-item {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #333;
+  }
+  .faq-question {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 1rem 0;
+    font-size: 1.1rem;
+    color: #fcd800;
+    cursor: pointer;
+    transition: color 0.3s;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+  }
+  .faq-question:hover,
+  .faq-question:focus {
+    /* Added focus state for accessibility */
+    color: #ffe64d;
+    outline: none;
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    text-align: left;
+    padding-left: 1rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+  }
+  /* Expanded FAQ */
+  .faq-item.active .faq-answer {
+    max-height: 500px; /* enough to show answer */
+    margin-bottom: 1rem;
+  }
+  /* Responsive */
+  @media(max-width: 768px) {
+    .faq-question {
+      font-size: 1rem;
+    }
+    .faq-answer {
+      font-size: 0.95rem;
+      padding-left: 0.5rem;
+    }
+  }
+</style>
+<section class="hero">
+  <div class="hero-left">
+    <h1>
+      It's Free<br>
+        It's Practice-Based<br>
+          It's Right for You.
+        </h1>
+        <p>Jeevadhara offers free, practice-based lessons for the following exams:</p>
+        <div class="exam-grid" aria-label="Target Exams">
+          <span>NEET-UG</span>
+          <span>NEET-PG</span>
+          <span>AIAPGET (AYU)</span>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="cta-container">
+          <button class="cta-btn">Start Here</button>
+          <p class="cta-text">It's totally free.</p>
+        </div>
+      </div>
+    </section>
+    <section class="courses">
+      <div class="container">
+        <h2>All Courses</h2>
+        <div id="courses-container" class="courses-grid">
+          {% for course in courses %}
+            <div class="course-column">
+              <div class="course-row">
+                <div class="exam-header" role="button" aria-expanded="false" tabindex="0" onclick="toggleExam(this)">
+                  <div class="exam-name">{{ course.name }}</div>
+                  <div class="toggle-icon">▼</div>
+                </div>
+                <div class="exam-content collapsed" aria-hidden="true">
+                  {% for subject in course.subjects %}
+                    <div class="subject">
+                      <div class="subject-header" role="button" aria-expanded="false" tabindex="0" onclick="toggleSubject(this)">
+                        <div class="subject-name">{{ subject.name }}</div>
+                        <div class="toggle-icon">▼</div>
+                      </div>
+                      <div class="chapters collapsed" aria-hidden="true">
+                        {% for chapter in subject.chapters %}
+                          <div class="chapter">
+                            <a href="{{ chapter.url }}">{{ chapter.name }}</a>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    <section class="sponsors">
+      <div class="overlay" aria-hidden="true"></div>
+      <div class="sponsors-content">
+        <h2>Our Esteemed Sponsors</h2>
+        <div class="sponsor-grid">
+          <img src="assets/logo1.jpg" alt="Sponsor Logo 1">
+            <img src="assets/logo2.jpg" alt="Sponsor Logo 2">
+              <img src="assets/logo3.jpg" alt="Sponsor Logo 3">
+                <img src="assets/logo4.jpg" alt="Sponsor Logo 4">
+                  <img src="assets/logo5.jpg" alt="Sponsor Logo 5">
+                    <img src="assets/logo6.jpg" alt="Sponsor Logo 6">
+                      <img src="assets/logo7.jpg" alt="Sponsor Logo 7">
+                        <img src="assets/logo8.jpg" alt="Sponsor Logo 8">
+                          <img src="assets/logo9.jpg" alt="Sponsor Logo 9">
+                            <img src="assets/logo10.jpg" alt="Sponsor Logo 10">
+                              <img src="assets/logo11.jpg" alt="Sponsor Logo 11">
+                                <img src="assets/logo12.jpg" alt="Sponsor Logo 12">
+                                  <img src="assets/logo13.jpg" alt="Sponsor Logo 13">
+                                    <img src="assets/logo14.jpg" alt="Sponsor Logo 14">
+                                      <img src="assets/logo15.jpg" alt="Sponsor Logo 15"></div>
+                                      <a href="/all-sponsors" class="view-all">View All Sponsors</a>
+                                    </div>
+                                  </section>
+                                  <section class="why-learn">
+                                    <div class="overlay" aria-hidden="true"></div>
+                                    <div class="why-learn-content">
+                                      <h2>Why Learn with Jeevadhara</h2>
+                                      <div class="feature-grid">
+                                        <div class="feature-row">
+                                          <h3>Expertly Curated Medical Content</h3>
+                                          <p>Learn from resources carefully crafted by top educators, medical professionals, and PhD mentors to build a strong
+                                            foundation for NEET and other medical exams.</p>
+                                        </div>
+                                        <div class="feature-row">
+                                          <h3>Free Quality Learning</h3>
+                                          <p>Access premium medical education at no cost, made possible by the generosity of our donors, so you can focus on exam
+                                            preparation without financial stress.</p>
+                                        </div>
+                                        <div class="feature-row">
+                                          <h3>Complete NEET Preparation</h3>
+                                          <p>Master every concept with a structured, exam-focused curriculum covering theory, practice questions, and high-yield
+                                            topics for maximum results.</p>
+                                        </div>
+                                        <div class="feature-row">
+                                          <h3>Test Your Knowledge</h3>
+                                          <p>Strengthen your exam readiness with regular mock tests and practice questions that mirror the NEET exam pattern.</p>
+                                        </div>
+                                      </div>
+                                      <div class="cta-container">
+                                        <button class="cta-btn">Start Learning Now (It’s Free)</button>
+                                      </div>
+                                    </div>
+                                  </section>
+                                  <section class="faqs">
+                                    <div class="faqs-content">
+                                      <h2>Frequently Asked Questions</h2>
+                                      <div class="faq-item">
+                                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">1. What is Jeevadhara?</button>
+                                        <div class="faq-answer" id="faq-answer-1" role="region" aria-labelledby="faq-question-1">
+                                          <p>Jeevadhara is a free online learning platform designed to help medical aspirants prepare for NEET UG, NEET PG, and
+                                            AIAPGET with high-quality resources, mock tests, and a structured curriculum.</p>
+                                        </div>
+                                      </div>
+                                      <div class="faq-item">
+                                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">2. Is Jeevadhara really free?</button>
+                                        <div class="faq-answer" id="faq-answer-2" role="region" aria-labelledby="faq-question-2">
+                                          <p>Yes! All learning materials, mock tests, and resources on Jeevadhara are completely free, thanks to the support of
+                                            our generous donors.</p>
+                                        </div>
+                                      </div>
+                                      <div class="faq-item">
+                                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">3. Which exams can I prepare for on
+                                          Jeevadhara?</button>
+                                        <div class="faq-answer" id="faq-answer-3" role="region" aria-labelledby="faq-question-3">
+                                          <p>You can prepare for NEET UG, NEET PG, and AIAPGET. Our resources are tailored to the syllabus, exam pattern, and
+                                            high-yield topics of each exam.</p>
+                                        </div>
+                                      </div>
+                                      <div class="faq-item">
+                                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">4. Do I need to register to access the
+                                          courses?</button>
+                                        <div class="faq-answer" id="faq-answer-4" role="region" aria-labelledby="faq-question-4">
+                                          <p>Yes, creating a free account allows you to track your progress, attempt mock tests, and access personalized learning
+                                            recommendations.</p>
+                                        </div>
+                                      </div>
+                                      <div class="faq-item">
+                                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">5. What kind of learning materials does
+                                          Jeevadhara provide?</button>
+                                        <div class="faq-answer" id="faq-answer-5" role="region" aria-labelledby="faq-question-5">
+                                          <p>We provide well-curated content by medical experts, including theory notes, practice questions, high-yield topics,
+                                            and concept explanations.</p>
+                                        </div>
+                                      </div>
+                                      <div class="faq-item">
+                                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">6. Are there mock tests available?</button>
+                                        <div class="faq-answer" id="faq-answer-6" role="region" aria-labelledby="faq-question-6">
+                                          <p>Yes! Jeevadhara offers regular mock tests for NEET UG, NEET PG, and AIAPGET to help you assess your preparation and
+                                            get exam-like practice.</p>
+                                        </div>
+                                      </div>
+                                      <div class="faq-item">
+                                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">7. Can I use Jeevadhara on mobile?</button>
+                                        <div class="faq-answer" id="faq-answer-7" role="region" aria-labelledby="faq-question-7">
+                                          <p>Absolutely. Jeevadhara is fully optimized for mobile devices, so you can study anytime, anywhere.</p>
+                                        </div>
+                                      </div>
+                                      <div class="faq-item">
+                                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">8. How often is the content updated?</button>
+                                        <div class="faq-answer" id="faq-answer-8" role="region" aria-labelledby="faq-question-8">
+                                          <p>Our content is regularly reviewed and updated by medical professionals to ensure it stays aligned with the latest
+                                            exam patterns and medical knowledge.</p>
+                                        </div>
+                                      </div>
+                                      <div class="faq-item">
+                                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-9">9. Can Jeevadhara help me identify my
+                                          weak areas?</button>
+                                        <div class="faq-answer" id="faq-answer-9" role="region" aria-labelledby="faq-question-9">
+                                          <p>Yes. Our mock tests and practice modules provide detailed feedback, helping you focus on areas that need improvement.</p>
+                                        </div>
+                                      </div>
+                                      <div class="faq-item">
+                                        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-10">10. How is Jeevadhara different from
+                                          other medical prep platforms?</button>
+                                        <div class="faq-answer" id="faq-answer-10" role="region" aria-labelledby="faq-question-10">
+                                          <p>Jeevadhara is completely free, expertly curated by medical educators, and specifically designed for NEET UG, NEET PG,
+                                            and AIAPGET aspirants. Unlike other platforms, we focus on high-quality content and exam-oriented practice without any
+                                            cost barriers.</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </section>
+                                  <script>
+                                    // Simplified JavaScript - only the toggle functionality
+                                    function toggleExam(element) {
+                                      const content = element.nextElementSibling;
+                                      const icon = element.querySelector('.toggle-icon');
+                                      const isCollapsed = content.classList.toggle('collapsed');
+                                      element.setAttribute('aria-expanded', ! isCollapsed);
+                                      content.setAttribute('aria-hidden', isCollapsed);
+                                      icon.style.transform = isCollapsed
+                                        ? 'rotate(0deg)'
+                                        : 'rotate(180deg)';
+                                    }
+                                    function toggleSubject(element) {
+                                      const content = element.nextElementSibling;
+                                      const icon = element.querySelector('.toggle-icon');
+                                      const isCollapsed = content.classList.toggle('collapsed');
+                                      element.setAttribute('aria-expanded', ! isCollapsed);
+                                      content.setAttribute('aria-hidden', isCollapsed);
+                                      icon.style.transform = isCollapsed
+                                        ? 'rotate(0deg)'
+                                        : 'rotate(180deg)';
+                                    }
+                                    // FAQ functionality
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                      const faqItems = document.querySelectorAll('.faq-item');
+                                      faqItems.forEach((item, index) => {
+                                        const question = item.querySelector('.faq-question');
+                                        const answer = item.querySelector('.faq-answer');
+                                        question.id = `faq-question-${
+                                          index + 1
+                                        }`;
+                                        answer.id = `faq-answer-${
+                                          index + 1
+                                        }`;
+                                        question.setAttribute('aria-controls', answer.id);
+                                        question.addEventListener('click', () => {
+                                          const isActive = item.classList.toggle('active');
+                                          question.setAttribute('aria-expanded', isActive);
+                                        });
+                                      });
+                                    });
+                                  </script>
