@@ -523,11 +523,13 @@ layout: layout.njk
         It's Practice-Based<br>
           It's Right for You.
         </h1>
-        <p>Jeevadhara offers free, practice-based lessons for the following exams:</p>
-        <div class="exam-grid" aria-label="Target Exams">
-          <span>NEET-UG</span>
-          <span>NEET-PG</span>
-          <span>AIAPGET (AYU)</span>
+        <p>Jeevadhara offers free, practice-based lessons for</p>
+        <br>
+          <div class="exam-grid" aria-label="Target Exams">
+            {% for course in courses %}
+              <span>{{ course.name }}</span>
+            {% endfor %}
+          </div>
         </div>
       </div>
       <div class="hero-right">
