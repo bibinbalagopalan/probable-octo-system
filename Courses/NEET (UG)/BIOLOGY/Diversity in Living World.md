@@ -1,8 +1,11 @@
 ---
 layout: study-base.njk
-title: Sample Note Template
-permalink: /courses/dummy/human-anatomy/cell-biology/
-backLink: /courses/dummy
+title: Diversity in Living World
+permalink: /courses/neet-ug/biology/diversity-in-living-world/
+backLink: /courses/neet-ug
+searchable: true
+description: Cell Biology
+tags: [Cell, Biology]
 ---
 
 ## Introduction to the Topic

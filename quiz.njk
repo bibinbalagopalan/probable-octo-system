@@ -412,8 +412,7 @@ permalink: /quiz/index.html
                         <div class="chapter-name" id="chapter-name">Loading Chapter...</div>
                         <a href="#" id="back-to-course" class="back-to-course">← Back to Course</a>
                     </div>
-                    <!-- Sponsor Section (KEEP THIS) -->
-                    <div class="sponsor-section" id="sponsor-section">
+                    <!-- Sponsor Section (KEEP THIS) <div class="sponsor-section" id="sponsor-section">
                         <div class="sponsor-title">Sponsored By</div>
                         <div class="sponsor-content">
                             <img id="sponsor-logo" class="sponsor-logo" src="/assets/sponsor-edutech.png" alt="Sponsor Logo">
@@ -421,7 +420,7 @@ permalink: /quiz/index.html
                                 <div class="sponsor-name" id="sponsor-name">EduTech Solutions</div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </header>
                 <main class="content-area" role="main">
                     <div class="progress-container">
@@ -528,13 +527,11 @@ permalink: /quiz/index.html
                     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                     .join(' ');
             }
-            // Display random sponsor in header
-            function displayRandomSponsor() {
-                const randomIndex = Math.floor(Math.random() * sponsors.length);
-                const sponsor = sponsors[randomIndex];
-                document.getElementById('sponsor-logo').src = sponsor.logo;
-                document.getElementById('sponsor-name').textContent = sponsor.name;
-            }
+            /* Display random sponsor in header function displayRandomSponsor() {
+    const randomIndex = Math.floor(Math.random() * sponsors.length);
+    const sponsor = sponsors[randomIndex];
+    document.getElementById('sponsor-logo').src = sponsor.logo;
+    document.getElementById('sponsor-name').textContent = sponsor.name; } */
             // Load questions from JSON file
             async function loadQuizQuestions() {
                 if (! currentCourse || ! currentSubject || ! currentChapter) {
@@ -645,8 +642,8 @@ permalink: /quiz/index.html
                 feedbackText.textContent = isCorrect
                     ? 'You selected the correct answer.'
                     : `The correct answer is: ${
-                        question.options[question.correctAnswer]
-                    }`;
+                    question.options[question.correctAnswer]
+                }`;
                 explanationElement.textContent = question.explanation;
                 feedbackContainer.classList.add('show');
             }
@@ -709,9 +706,7 @@ permalink: /quiz/index.html
             }
             // Initialize the quiz
             async function initQuiz() {
-                // Display random sponsor in header
-                displayRandomSponsor();
-                // Get parameters from URL
+                // Display random sponsor in header displayRandomSponsor(); Get parameters from URL
                 const urlParams = new URLSearchParams(window.location.search);
                 currentCourse = urlParams.get('course') || '';
                 currentSubject = urlParams.get('subject') || '';
